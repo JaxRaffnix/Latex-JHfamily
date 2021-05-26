@@ -1,0 +1,132 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{JHdeclaration}[2021-02-12 Eidesstattliche Erkl\"aerung in deutsch mit Text des KIT]
+
+
+\RequirePackage{flushend}		% Balance last column
+\RequirePackage[autostyle]{csquotes}	% KIT in Quotes
+\RequirePackage{xkeyval}		% Key values
+
+
+\newlength{\declaration@name@hor}		% Space Datum<-->Name
+\newlength{\declaration@sign@hor}		% Length of signature line
+\newlength{\declaration@sign@vert}		% Space between signatures
+
+
+\DeclareOption{twocolumn}{%		% Change width in twocolumn mode
+	\setlength{\declaration@name@hor}{0.2\columnwidth}%
+	\setlength{\declaration@sign@hor}{1.0\columnwidth}%
+}
+\DeclareOption*{\PackageWarning{JHdeclaration}{Unkown option \CurrentOption }}
+\ProcessOptions\relax
+
+
+\newif\ifdeclaration@blank
+\define@boolkey{declaration}{blank}{%	% Boolean paragraph
+	\ifKV@declaration@blank
+		\declaration@blanktrue
+	\else
+		\declaration@blankfalse
+	\fi
+}
+\define@boolkey{declaration}{numbering}{%	% Boolean heading number
+	\ifKV@declaration@numbering
+		\def\declaration@numbering{}%
+	\else
+		\def\declaration@numbering{*}%
+	\fi
+}
+\define@key{declaration}{heading}{%		% Create header
+	\def\declaration@heading{%
+		\ \csname#1\expandafter\endcsname\declaration@numbering{Eidesstattliche Erkl\"{a}rung}
+}}
+
+\setkeys{declaration}{heading=section, numbering=true, blank=false,}	% Set defaults
+
+
+\def\authorone#1#2#3#4#5{%		% First author
+	\def\JH@authorone@prefix{#1}%
+	\def\JH@authorone@first{#2}%
+	\def\JH@authorone@last{#3}%
+	\def\JH@authorone@suffix{#4}%
+	\def\JH@authorone@footnote{#5}%
+	\def\JH@authorone@full{\JH@authorone@prefix\JH@authorone@first\ \JH@authorone@last\JH@authorone@suffix\ }
+}
+\def\authortwo#1#2#3#4#5{%		% Second author
+	\def\JH@authortwo@prefix{#1}%
+	\def\JH@authortwo@first{#2}%
+	\def\JH@authortwo@last{#3}%
+	\def\JH@authortwo@suffix{#4}%
+	\def\JH@authortwo@footnote{#5}%
+	\def\JH@authortwo@full{\JH@authortwo@prefix\JH@authortwo@first\ \JH@authortwo@last\JH@authortwo@suffix\ }
+}
+\def\authorthree#1#2#3#4#5{%		% Third author
+	\def\JH@authorthree@prefix{#1}%
+	\def\JH@authorthree@first{#2}%
+	\def\JH@authorthree@last{#3}%
+	\def\JH@authorthree@suffix{#4}%
+	\def\JH@authorthree@footnote{#5}%
+	\def\JH@authorthree@full{\JH@authorthree@prefix\JH@authorthree@first\ \JH@authorthree@last\JH@authorthree@suffix\ }
+}
+
+
+\newcommand{\declaration}[2][]{%	% Define declrataion
+
+	\setkeys{declaration}{#1}%	% Set Key-Values as  optional arguments
+
+	\ifdefined\JH@authorone@full	% Define name first author
+		\def\declaration@author{\JH@authorone@full}
+	\else
+		\def\declaration@author{#2}
+	\fi
+
+	\setlength{\declaration@sign@vert}{2em plus 2em minus 0.5em}	% Set lengths
+	\setlength{\declaration@name@hor}{0.2\linewidth}
+	\setlength{\declaration@sign@hor}{0.9\linewidth}
+	
+\ifdeclaration@blank		% define paragraph
+	 \def\declaration@paragraph{\relax}
+\else
+	\def\declaration@paragraph{%
+		\declaration@heading		% Get heading
+		\ifdefined\JH@authorthree@full		% 3 Authors
+			Hiermit erkl\"aren wir an Eides statt, dass wir die vorliegende Arbeit selbstst\"andig und ohne unzul\"assige fremde Hilfsmittel angefertigt haben. W\"ortlich oder inhaltlich übernommene Stellen sind als solche kenntlich gemacht und die verwendeten Literaturquellen im Literaturverzeichnis vollst\"andig angegeben. Die \enquote{Regeln zur Sicherung guter wissenschaftlicher Praxis im Karlsruher Institut für Technologie (KIT)} in ihrer g\"ultigen Form wurden beachtet.\par
+		\else
+			\ifdefined\JH@authortwo@full	% 2 Authors
+				Hiermit erkl\"aren wir an Eides statt, dass wir die vorliegende Arbeit selbstst\"andig und ohne unzul\"assige fremde Hilfsmittel angefertigt haben. W\"ortlich oder inhaltlich übernommene Stellen sind als solche kenntlich gemacht und die verwendeten Literaturquellen im Literaturverzeichnis vollst\"andig angegeben. Die \enquote{Regeln zur Sicherung guter wissenschaftlicher Praxis im Karlsruher Institut für Technologie (KIT)} in ihrer g\"ultigen Form wurden beachtet.\par
+			\else					% 1 Author
+				Hiermit erkl\"are ich an Eides statt, dass ich die vorliegende Arbeit selbstst\"andig und ohne unzul\"assige fremde Hilfsmittel angefertigt habe. W\"ortlich oder inhaltlich übernommene Stellen sind als solche kenntlich gemacht und die verwendeten Literaturquellen im Literaturverzeichnis vollst\"andig angegeben. Die \enquote{Regeln zur Sicherung guter wissenschaftlicher Praxis im Karlsruher Institut für Technologie (KIT)} in ihrer gültigen Form wurden beachtet.\par
+			\fi
+		\fi
+	 }
+\fi
+	
+	\declaration@paragraph
+	
+	\begin{samepage}	
+	\ifdefined\JH@authorthree@full		% 3 Authors
+		\vspace{\declaration@sign@vert}\vfil\noindent%
+		\rule{\declaration@sign@hor}{0.5pt}\\
+		Ort, Datum\hspace{\declaration@name@hor}\declaration@author\par
+		\vspace{\declaration@sign@vert}\noindent%
+		\rule{\declaration@sign@hor}{0.5pt}\\
+		Ort, Datum\hspace{\declaration@name@hor}\JH@authortwo@full\par
+		\vspace{\declaration@sign@vert}\noindent%
+		\rule{\declaration@sign@hor}{0.5pt}\\
+		Ort, Datum\hspace{\declaration@name@hor}\JH@authorthree@full\par
+	\else
+		\ifdefined\JH@authortwo@full	% 2 Authors
+			\vspace{\declaration@sign@vert}\vfil\noindent%
+			\rule{\declaration@sign@hor}{0.5pt}\\
+			Ort, Datum\hspace{\declaration@name@hor}\declaration@author\par
+			\vspace{\declaration@sign@vert}\noindent%
+			\rule{\declaration@sign@hor}{0.5pt}\\
+			Ort, Datum\hspace{\declaration@name@hor}\JH@authortwo@full\par
+		\else			% 1 Author
+			\vspace{\declaration@sign@vert}\vfil\noindent%
+			\rule{\declaration@sign@hor}{0.5pt}\\
+			Ort, Datum\hspace{\declaration@name@hor}\declaration@author\par
+		\fi
+	\fi
+	\end{samepage}
+}
+\endinput
