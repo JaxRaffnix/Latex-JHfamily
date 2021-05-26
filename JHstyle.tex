@@ -1,0 +1,197 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{JHstyle}[2021-05-25 packaages and makros taking care of the praeambel]
+
+%----------------------------------------------------------------------------------------------------
+%   Packages
+%----------------------------------------------------------------------------------------------------
+
+\RequirePackage[T1]{fontenc}					% 8bit font encoding
+\RequirePackage[english, ngerman]{babel}		% word seperation
+\RequirePackage{microtype}						% font expansion
+
+\RequirePackage{libertine}						% select font
+\RequirePackage[libertine]{newtxmath}			% select math font
+\RequirePackage[autooneside=false]{scrlayer-scrpage}	% better header
+
+\RequirePackage[dvipsnames]{xcolor}				% add colors
+\RequirePackage{graphicx}						% add pictures
+\RequirePackage{wrapfig}						% embedd pictures in text
+\RequirePackage{subcaption}						% subheadung for figures
+\RequirePackage{booktabs}						% better tabular
+\RequirePackage{tabularx}						% tabular with textwidth
+\RequirePackage{amsmath}						% more math makros
+\RequirePackage[%
+	locale=DE,
+	detect-all,
+	per-mode=fraction,
+	range-units=repeat,
+	range-phrase={{~bis~}},
+]{siunitx}										% add units
+\RequirePackage{listingsutf8}					% add source code
+\RequirePackage{eurosym}						% add euro-character
+
+\RequirePackage[backend=biber, style=ieee]{biblatex}	% biblography management
+\RequirePackage[autostyle]{csquotes}			% add quotes
+
+\RequirePackage{scrhack}						% TocBasic for listings
+
+\RequirePackage[colorlinks]{hyperref}			% add links
+
+%----------------------------------------------------------------------------------------------------
+%   Dimensions
+%----------------------------------------------------------------------------------------------------
+
+\newlength{\imagewidth}		% set width for images
+\setlength{\imagewidth}{0.5\columnwidth}
+
+%----------------------------------------------------------------------------------------------------
+%   Colors
+%----------------------------------------------------------------------------------------------------
+
+\definecolor{bluelinks}{rgb}{0.16, 0.32, 0.75}		% color hyperref links
+
+\newcommand{\JHstyle@lst@commentcolor}{\color{ForestGreen}}	% lstlisting color
+\newcommand{\JHstyle@lst@stringcolor}{\color{Mulberry}}		% lstlisting color
+\newcommand{\JHstyle@lst@keywordcolor}{\color{blue}}		% lstlisting color
+
+%----------------------------------------------------------------------------------------------------
+%   Commands
+%----------------------------------------------------------------------------------------------------
+
+\renewcommand{\mkcitation}[1]{#1}			% csquotes blockquotes no bracket
+
+\graphicspath{{/images}}                    %   imagepath
+
+\addbibresource{quellen.bib}                %   sourcepath
+
+\KOMAoptions{%
+    toc		=	listof,						%   list of figure in table of contents
+	toc		=	bibliography,				%   biblography in table of contents
+	numbers	=	noendperiod,				%   no dot after heading
+}
+
+\AtBeginDocument{%
+	\providecommand{\internalhyperauthor}{\@author}	% set pdfauthor if not given
+	\providecommand{\internalhypertitle}{\@title}		% set pdftitle if not given
+	\hypersetup{%
+		urlcolor			=	bluelinks,
+		bookmarksnumbered	=	true,			%	numerate headings
+		breaklinks			=	true,		% break links
+		pdfauthor			=	\internalhyperauthor ,		%	write authorname in pdf
+		pdftitle			=	\internalhypertitle ,		%	write title in pdf
+		}
+}
+\DeclareOption{nocoloredlinks}{%		% option for hyperref setting
+	\hypersetup{%
+		urlcolor	=	bluelinks,
+		linkcolor	=	.,
+		filecolor	=	.,
+		citecolor	=	.,
+		menucolor	=	.,
+		}
+}
+\DeclareOption*{\PackageWarning{JHstyle}{Unkown option \CurrentOption }}
+\ProcessOptions\relax
+
+\lstset{%
+	frame			=	tb ,							%	hline top and bottom
+	breaklines		=	true,							%	break lines
+	rulecolor		=	\color{black} ,					%	linecolor black
+	keywordstyle	=	\JHstyle@lst@keywordcolor ,
+	commentstyle	=	\JHstyle@lst@commentcolor ,
+	stringstyle		=	\JHstyle@lst@stringcolor ,
+	title			=	\lstname ,						%	set filename as title 
+	basicstyle		=	\footnotesize\ttfamily ,		%	set font
+	numbers			=	left,							%	numbers left
+	xleftmargin		=	2em,							%	set length on left side
+	framexleftmargin=	1em,
+	inputencoding	=	utf8,  							% Input encoding
+    extendedchars	=	true,  							% Extended ASCII
+}
+\lstdefinestyle{TeX}{language=TeX,						%	more keyword for TeX
+    morekeywords={vspace, hspace, rule, ifdefined, newcommand, setlength, newlength, RequirePackage, ProvidesPackage, NeedsTeXFormat, DeclareOption, ProcessOption, usepackage, documentclass, authorone, authortwo, authorthree, begin, thanks, reversemarginpar, ProcessOptions, definecolor, small, sffamily, AtBeginDocument, newenvironment, cbcolor, textcolor, emph, renewcommand}, 
+}
+\lstset{literate=										%	T1 in listing
+  {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {ã}{{\~a}}1 {ẽ}{{\~e}}1 {ĩ}{{\~i}}1 {õ}{{\~o}}1 {ũ}{{\~u}}1
+  {Ã}{{\~A}}1 {Ẽ}{{\~E}}1 {Ĩ}{{\~I}}1 {Õ}{{\~O}}1 {Ũ}{{\~U}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {ű}{{\H{u}}}1 {Ű}{{\H{U}}}1 {ő}{{\H{o}}}1 {Ő}{{\H{O}}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\euro}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1
+  {»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1 {¡}{{!`}}1 
+  {~}{{\textasciitilde}}1 {*}{{\normalfont{*}}}1
+}
+
+%----------------------------------------------------------------------------------------------------
+%   JH authors
+%----------------------------------------------------------------------------------------------------
+
+\def\authorone#1#2#3#4#5{%		% first author
+	\def\JH@authorone@prefix{#1}%
+	\def\JH@authorone@first{#2}%
+	\def\JH@authorone@last{#3}%
+	\def\JH@authorone@suffix{#4}%
+	\def\JH@authorone@footnote{#5}%
+	\def\JH@authorone@full{\JH@authorone@prefix\JH@authorone@first\ \JH@authorone@last\JH@authorone@suffix\ }
+}
+\def\authortwo#1#2#3#4#5{%		% second author
+	\def\JH@authortwo@prefix{#1}%
+	\def\JH@authortwo@first{#2}%
+	\def\JH@authortwo@last{#3}%
+	\def\JH@authortwo@suffix{#4}%
+	\def\JH@authortwo@footnote{#5}%
+	\def\JH@authortwo@full{\JH@authortwo@prefix\JH@authortwo@first\ \JH@authortwo@last\JH@authortwo@suffix\ }
+}
+\def\authorthree#1#2#3#4#5{%		% third author
+	\def\JH@authorthree@prefix{#1}%
+	\def\JH@authorthree@first{#2}%
+	\def\JH@authorthree@last{#3}%
+	\def\JH@authorthree@suffix{#4}%
+	\def\JH@authorthree@footnote{#5}%
+	\def\JH@authorthree@full{\JH@authorthree@prefix\JH@authorthree@first\ \JH@authorthree@last\JH@authorthree@suffix\ }
+}
+
+\AtBeginDocument{		% set \author for title page
+	\ifdefined\JH@authorthree@full
+		\author{\JH@authorone@first\ \JH@authorone@last\JH@authorone@footnote \and \JH@authortwo@first\ \JH@authortwo@last\JH@authortwo@footnote \and \JH@authorthree@first\ \JH@authorthree@last\JH@authorthree@footnote}
+	\else
+		\ifdefined\JH@authortwo@full
+			\author{\JH@authorone@first\ \JH@authorone@last\JH@authorone@footnote \and \JH@authortwo@first\ \JH@authortwo@last\JH@authortwo@footnote}
+		\else
+			\ifdefined\JH@authorone@full
+				\author{\JH@authorone@first\ \JH@authorone@last\JH@authorone@footnote}
+			\fi
+		\fi
+	\fi
+}
+
+%----------------------------------------------------------------------------------------------------
+%   New Makros
+%----------------------------------------------------------------------------------------------------
+
+\newcommand{\RM}[1]{\uppercase\expandafter{\romannumeral #1}}	%	roman numbers in text
+
+\renewcommand{\lstlistingname}{Quellcode}						%	change name
+\renewcommand{\lstlistlistingname}{Codeverzeichnis}				%	rename Listoflistings 
+
+\newcommand{\imagesource}[1]{\par\footnotesize\textbf{Quelle:}~#1}   	%   sources for pictures
+\newcommand{\imagelegend}[1]{\par\footnotesize\textbf{Legende:}~#1}		%   underline for pictures
+
+\newcommand{\hypertitle}[1]{%		% set pdf title 
+	\newcommand{\internalhypertitle}{#1}}
+	
+\newcommand{\hyperauthor}[1]{%		% set pdf author
+	\newcommand{\internalhyperauthor}{#1}}
+
+\endinput
