@@ -1,0 +1,123 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{JHauthorbars}[2021-04-28 Farbliche Marginalien f\"ur verschiedene Autoren]
+
+\RequirePackage[dvipsnames]{xcolor}		% Colors
+\RequirePackage{marginnote}		% better margins
+
+\def\authorbars@position{innerbars}		% authorbars position
+\newif\ifauthorbars@twoside		% if twoside
+\authorbars@twosidefalse		% set default
+
+\DeclareOption{twoside}{%		% twoside option
+	\def\authorbars@position{outerbars}
+	\authorbars@twosidetrue
+}
+
+\DeclareOption{flip}{%		% change authorbars position
+	\reversemarginpar
+	\ifauthorbars@twoside		% if twoside
+		\def\authorbars@position{innerbars}
+	\else
+		\def\authorbars@position{outerbars}
+	\fi
+}
+
+\DeclareOption*{\PackageWarning{JHauthorbars}{Unkown option \CurrentOption }}
+\ProcessOptions\relax
+
+\RequirePackage[xcolor, \authorbars@position]{changebar}		% Margin bars
+
+\definecolor{orange1}{RGB}{255, 95, 0}   % together
+\definecolor{green1}{RGB}{35,229,0}		% first author
+\definecolor{blue1}{RGB}{32, 20, 204}	% second author
+
+\def\authorbars@margin#1{%		% Change Margin Font
+	\marginnote{\vspace{0.3em}\small\sffamily #1}
+}
+
+\def\authorbars@together{Gemeinsam}		% together name
+
+\def\authorone#1#2#3#4#5{%		% first author
+	\def\JH@authorone@prefix{#1}%
+	\def\JH@authorone@first{#2}%
+	\def\JH@authorone@last{#3}%
+	\def\JH@authorone@suffix{#4}%
+	\def\JH@authorone@footnote{#5}%
+	\def\JH@authorone@full{\JH@authorone@prefix\JH@authorone@first\ \JH@authorone@last\JH@authorone@suffix\ }
+}
+\def\authortwo#1#2#3#4#5{%		% second author
+	\def\JH@authortwo@prefix{#1}%
+	\def\JH@authortwo@first{#2}%
+	\def\JH@authortwo@last{#3}%
+	\def\JH@authortwo@suffix{#4}%
+	\def\JH@authortwo@footnote{#5}%
+	\def\JH@authortwo@full{\JH@authortwo@prefix\JH@authortwo@first\ \JH@authortwo@last\JH@authortwo@suffix\ }
+}
+\def\authorthree#1#2#3#4#5{%		% third author
+	\def\JH@authorthree@prefix{#1}%
+	\def\JH@authorthree@first{#2}%
+	\def\JH@authorthree@last{#3}%
+	\def\JH@authorthree@suffix{#4}%
+	\def\JH@authorthree@footnote{#5}%
+	\def\JH@authorthree@full{\JH@authorthree@prefix\JH@authorthree@first\ \JH@authorthree@last\JH@authorthree@suffix\ }
+}
+
+\AtBeginDocument{
+
+\newenvironment{together}{%		% together bars
+	\cbcolor{orange1}\authorbars@margin{\authorbars@together}%
+	\begin{changebar}
+}{%
+	\end{changebar}
+}
+\newcommand{\authorbars@together@text}{\emph{\authorbars@together:}~\textcolor{orange1}{\rule{2pt}{0.7em}}}		% for authorbarsabstract
+\ifdefined\JH@authorone@full		% first author bars
+	\newenvironment{authoronebars}{%
+		\cbcolor{green1}\authorbars@margin{\JH@authorone@last}%
+		\begin{changebar}
+	}{%
+		\end{changebar}
+	}
+	\newcommand{\authorbars@authorone@text}{\emph{\JH@authorone@last:}~\textcolor{green1}{\rule{2pt}{0.7em}}}		% for authorbarsabstract
+\fi
+\ifdefined\JH@authortwo@full		% second author bars
+	\newenvironment{authortwobars}{%
+		\cbcolor{blue1}\authorbars@margin{\JH@authortwo@last}%
+		\begin{changebar}
+	}{%
+		\end{changebar}
+	}
+	\newcommand{\authorbars@authortwo@text}{\emph{\JH@authortwo@last:}~\textcolor{blue1}{\rule{2pt}{0.7em}}}		% for authorbarsabstract
+\fi
+\ifdefined\JH@authorthree@full		% third author bars
+	\newenvironment{authorthreebars}{%
+		\cbcolor{violet}\authorbars@margin{\JH@authorthree@last}%
+		\begin{changebar}
+	}{%
+		\end{changebar}
+	}
+	\newcommand{\authorbars@authorthree@text}{\emph{\JH@authorthree@last:}~\textcolor{violet}{\rule{2pt}{0.7em}}}		% for authorbarsabstract
+\fi
+
+\newcommand{\authorbarsabstract}{%		% explanation
+	\par 
+    Verwendete Abbildungen und Tabellen in dieser Ausarbeitung sind -- soweit nicht anders angegeben -- von den Autoren erstellt worden. Durch farbliche Marginalien wurden die Autoren verschiedener Textabschnitte gekennzeichnet
+    (%
+		\ifdefined\JH@authorthree@full%		% get name and color
+			\authorbars@authorthree@text, \authorbars@authortwo@text, \authorbars@authorone@text,
+		\else%
+			\ifdefined\JH@authortwo@full%
+				\authorbars@authortwo@text, \authorbars@authorone@text,
+			\else%
+				\ifdefined\JH@authorone@full%
+					\authorbars@authorone@text,
+				\fi
+			\fi		
+		\fi%
+		\authorbars@together@text
+    ).
+}
+
+}
+
+\endinput
