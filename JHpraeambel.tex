@@ -1,0 +1,151 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+%----------------------------------------------------------------------------------------------------
+%   Packages
+%----------------------------------------------------------------------------------------------------
+
+\usepackage[T1]{fontenc}                    %   Zeichenuntermenge T1
+\usepackage[english, ngerman]{babel}		%   deutsche und englische Texttrennung
+\usepackage{microtype}						%	Anpassen der Laufweite von Buchstaben
+
+\usepackage{libertine}                      %   Font auswählen
+\usepackage[libertine]{newtxmath}           %   Font für Mathemodus
+\usepackage[%
+    autooneside=false,                      %  Section oder Chapter in Kopfzeile
+]{scrlayer-scrpage}         				%	Bessere Kopfzeilen
+
+\usepackage[dvipsnames]{xcolor}				%   Farben darstellen
+\usepackage{graphicx}                       %   Bilder einbinden
+\usepackage{subcaption}						%	Unterüberschrift für Abbildungen
+\usepackage{booktabs}		                %   Bessere Tabellen
+\usepackage{tabularx}						%	Tabellen auf Textbreite
+\usepackage{amsmath}		                %   Formlen einbinden
+\usepackage[%
+	locale		=	DE, 					%	Deutsche Normen
+	detect-all,								%	Richtige Font im Textmodus/Mathemodus
+	per-mode	=	fraction,				%	Bruchstrich darstellen
+	range-units	=	repeat,					%	Einheiten wiederholt darstellen bei sirange
+	range-phrase=	{{~bis~}},				%	Wort für sirange
+]{siunitx}									%   Einheiten darstellen
+\usepackage{listingsutf8}					%	Code darstellen
+\usepackage{eurosym}						%	Eurozeichen im Text
+
+\usepackage[%
+    backend=biber,                          %   biber als Backend
+    style=ieee,                             %   IEEE Standard
+]{biblatex}                                 %   Biblography Management
+\usepackage[autostyle]{csquotes}        	%   Bessere Zitate
+
+\usepackage{scrhack}						%	TocBasic für Pakete wie listings
+
+
+\usepackage{hyperref}						%	Links
+
+%----------------------------------------------------------------------------------------------------
+%   Set Dimensions
+%----------------------------------------------------------------------------------------------------
+
+\newlength{\imagewidth}						%	Bildbreite
+
+%----------------------------------------------------------------------------------------------------
+%   Set Colors
+%----------------------------------------------------------------------------------------------------
+
+\definecolor{bluelinks}{rgb}{0.16, 0.32, 0.75}
+
+\newcommand{\commentcolor}{\color{ForestGreen}}
+\newcommand{\stringcolor}{\color{Mulberry}}
+\newcommand{\keywordcolor}{\color{blue}}
+
+%----------------------------------------------------------------------------------------------------
+%   Commands
+%----------------------------------------------------------------------------------------------------
+
+\graphicspath{{/images}}                    %   Bildpfad
+
+\addbibresource{quellen.bib}                %   Quellenpfad
+
+\KOMAoptions{%
+    toc		=	listof,						%   Abbildungsverzeichnis in Inhaltsverzeichnis
+	toc		=	bibliography,				%   Quellenverzeichnis in Inhaltsverzeichnis
+	numbers	=	noendperiod,				%   kein Punkt nach Überschriftnummer
+}
+
+\AtBeginDocument{%
+\iflinkcolor
+	\hypersetup{%
+		colorlinks			=	true,			%	farbliche Links
+		urlcolor			=	bluelinks,
+	}				
+\else
+	\hypersetup{%
+		colorlinks			=	true,			%	farbliche Links
+		urlcolor			=	bluelinks,
+		linkcolor			=	.,
+		filecolor			=	.,
+		citecolor			=	.,
+	}
+\fi
+	\hypersetup{%
+		bookmarksnumbered	=	true,			%	Überschriften in pdf-Reader nummerieren
+		breaklinks			=	true,			%	Links umbrechen
+		pdfauthor			=	\internalhyperauthor ,		%	Autorname in pdf schreiben
+		pdftitle			=	\internalhypertitle ,		%	Titel der pdf
+	}
+}
+
+\lstset{%
+	frame			=	tb ,							%	horizontale Linie oben&unten
+	breaklines		=	true,							%	Zeilenumbruch
+	rulecolor		=	\color{black} ,					%	Rahmenfarbe ist schwarz
+	keywordstyle	=	\keywordcolor ,
+	commentstyle	=	\commentcolor ,
+	stringstyle		=	\stringcolor ,
+	title			=	\lstname ,						%	Titel ist gleich dem Dateinamen
+	basicstyle		=	\footnotesize\ttfamily ,		%	Kleine Schrift und Monospace
+	numbers			=	right,							%	Zeilennumber rechts (da marginalie links)
+	inputencoding	=	utf8,  							% Input encoding
+    extendedchars	=	true,  							% Extended ASCII
+}
+\lstdefinestyle{TeX}{language=TeX,						%	Mehr Keywörter für TeX
+    morekeywords={vspcae, hspace, rule, ifdefined, newcommand, setlength, newlentgh, RequirePackage, ProvidesPackage, NeedsTexFormat, DeclareOption, ProcessOption}, 
+}
+\lstset{literate=							%	ermöglicht Unicode-Zeichen in Listing!
+  {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {ã}{{\~a}}1 {?}{{\~e}}1 {i}{{\~i}}1 {õ}{{\~o}}1 {u}{{\~u}}1
+  {Ã}{{\~A}}1 {?}{{\~E}}1 {I}{{\~I}}1 {Õ}{{\~O}}1 {U}{{\~U}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {u}{{\H{u}}}1 {U}{{\H{U}}}1 {o}{{\H{o}}}1 {O}{{\H{O}}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\euro}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1
+  {»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1 {¡}{{!`}}1 
+  {~}{{\textasciitilde}}1 {*}{{\normalfont{*}}}1
+}
+
+\renewcommand{\mkcitation}[1]{#1}			% Bei blockquotes von csquotes keine Klammern um Autorname
+
+%----------------------------------------------------------------------------------------------------
+%   New Makros
+%----------------------------------------------------------------------------------------------------
+
+\newcommand{\RM}[1]{\uppercase\expandafter{\romannumeral #1}}	%	Römische Zahlen in Text
+
+\renewcommand{\lstlistingname}{Quellcode}						%	Snippet umbenennen
+\renewcommand{\lstlistlistingname}{Codeverzeichnis}				%	Listoflistings umbenennen
+
+\newcommand{\imagesource}[1]{\par\footnotesize\textbf{Quelle:}~#1}   	%   Quellen für Bilder
+\newcommand{\imagelegend}[1]{\par\footnotesize\textbf{Legende:}~#1}		%   Bildunterschrift
+
+\newcommand{\hypertitle}[1]{%
+	\newcommand{\internalhypertitle}{#1}}
+	
+\newcommand{\hyperauthor}[1]{%
+	\newcommand{\internalhyperauthor}{#1}}

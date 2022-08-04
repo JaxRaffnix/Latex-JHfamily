@@ -1,0 +1,291 @@
+
+  % !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+%----------------------------------------------------------------------------------------------------
+%   About
+%----------------------------------------------------------------------------------------------------
+
+%	Das ist eine Testdatei. Sie enthält alle typischen Funktionen von LaTeX.
+%	Hieraus lässt sich ablesen, wie ein LaTeX-Dokument erstellt werden soll.
+
+%----------------------------------------------------------------------------------------------------
+%   To Do
+%----------------------------------------------------------------------------------------------------
+
+%	- fertig werden
+
+%----------------------------------------------------------------------------------------------------
+%   Konventions
+%----------------------------------------------------------------------------------------------------
+
+%	Kompiliere mit LaTeX2e pdflatex
+%	Eingabekodierung in UTF-8
+%	Bilder im Ordner "/images" speichern
+%	Quellen unter " quellen.bib" speichern
+%	Code Snippets in "/codes" speichern
+%	Für Abbildungen [width=\imagewidth] festlegen
+
+%----------------------------------------------------------------------------------------------------
+%   Commands
+%----------------------------------------------------------------------------------------------------
+
+\documentclass[%
+	paper		=	a4,							%	a4, letter
+	fontsize	=	11pt,						%	12 pt, 	11 pt,	10pt
+	DIV			=	calc,						%	12,		10,		8,		calc
+	twocolumn	=	false,						%	true, false
+	twoside		=	false,						%	true, false
+	headsepline	=	true,						%	true, false
+	%open		=	right,						%	left, right, auskommentiert
+	%BCOR		=	0mm,						%	Bindekorrektur in mm
+]{scrreprt}										%	scrartcl, scrreprt, scrbook
+
+\usepackage[utf8]{inputenc}                 %   UTF8 Unicode
+
+\usepackage{JHdeclaration}
+\usepackage[%
+%	reversemargin,
+%	innerbars,
+]{JHauthorbars}
+
+\newif\iflinkcolor							%	Linkcolor Boolean Schalter
+
+%\linkcolortrue								%	Alle Links farbig
+\linkcolorfalse								%	Nur URLs farbig
+
+\input{JHpraeambel}						%	Präambel
+
+\usepackage{blindtext}
+
+%----------------------------------------------------------------------------------------------------
+%   Commands
+%----------------------------------------------------------------------------------------------------
+
+\setlength{\imagewidth}{0.5\columnwidth}	%	Zahlenwert bei twcolumn auf 1 setzen
+
+\lstset{literate=							%	ermöglicht Unicode-Zeichen in Listing!
+  {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {ã}{{\~a}}1 {ẽ}{{\~e}}1 {ĩ}{{\~i}}1 {õ}{{\~o}}1 {ũ}{{\~u}}1
+  {Ã}{{\~A}}1 {Ẽ}{{\~E}}1 {Ĩ}{{\~I}}1 {Õ}{{\~O}}1 {Ũ}{{\~U}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {ű}{{\H{u}}}1 {Ű}{{\H{U}}}1 {ő}{{\H{o}}}1 {Ő}{{\H{O}}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\euro}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1
+  {»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1 {¡}{{!`}}1 
+  {~}{{\textasciitilde}}1 {*}{{\normalfont{*}}}1
+}
+
+%----------------------------------------------------------------------------------------------------
+%   Titelseite
+%----------------------------------------------------------------------------------------------------
+
+\titlehead{\textsc{%
+    Karlsruher Institut für Technologie\\
+    Studiengang Elektro- und Informationstechnik
+}}
+
+\subject{Workshop B: Analoge Filter und Schaltungsanalyse}
+
+\title{Entwicklung eines 2-Band-Equalizers}
+\hypertitle{2-Band-Equalizer}
+
+\subtitle{Gruppe 45}
+
+\author{Jan ohne M\thanks{Meine E-Mail} \and Peter Lustig\thanks{eine weitere E-Mail}}
+\hyperauthor{Jan Hoegen und Peter Lustig}
+
+\publishers{Ein Name des Herausgebers}
+
+\date{erstellt am \today}
+
+%\extratitle{Das ist der Schmutztitel.}
+
+\uppertitleback{Ein kleiner Text. Schade, dass hier nichts zu sehen ist.}	%	Nur im doppelseitigem Modus!
+
+\lowertitleback{Ein kleiner Text. Schade, dass hier keine ISBN steht.}	%	Nur im doppelseitigem Modus!
+
+\dedication{Das ist die Widmungsseite.}
+
+%----------------------------------------------------------------------------------------------------
+%   Kopfzeile
+%----------------------------------------------------------------------------------------------------
+
+%\ihead{}
+%\ohead{}
+%\chead{}
+
+\automark[section]{chapter}                          %   Chaptername in Kopfzeile
+
+%----------------------------------------------------------------------------------------------------
+%   Beginn
+%----------------------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\listoffigures
+
+\listoftables
+
+\lstlistoflistings
+
+%----------------------------------------------------------------------------------------------------
+%   Abstract
+%----------------------------------------------------------------------------------------------------
+
+\begin{abstract}
+	\let\raggedsection\centering
+	\section*{\abstractname}
+	\let\raggedsection\raggedright
+	Moin Moin. Das ist der Abstract.\par
+	\blindtext\par
+	\authorbarsabstract
+\end{abstract}
+
+%______ Alternative Abstract-Überschrift
+%\selectlanguage{english}
+%\section*{\abstractname}
+%\selectlanguage{ngerman}
+
+%----------------------------------------------------------------------------------------------------
+%   Kapitel 
+%----------------------------------------------------------------------------------------------------
+
+\chapter{Hallo}
+
+Römisch \RM{1} und \RM{4}
+
+\cite{einstein}
+
+\url{www.example.com}
+
+Das ist ein \emph{Text}. Dieser Text ist \emph{besonders wichtig, denn er ist \emph{wichtig}}. \textbf{Fetter Text \textnormal{normaler Text}} \textrm{Standardschrift} \textsf{serifenlos} \texttt{Monospace} \textit{kursiv} \textsc{Kapitälchen} \uppercase{Großbuchstaben}.
+
+Heute ist der \today. \blindtext
+
+\selectlanguage{english}
+Today is \today. \blindtext
+\selectlanguage{ngerman}
+
+\EUR{5~000}
+
+\section{Code Ausschnitt}
+
+\begin{lstlisting}[language=python, caption={Ein Beispiel}, label={lst:1}]
+	import()
+	a^2 +ö = "String"		#Hihi
+\end{lstlisting}
+
+\lstinputlisting[language=python, caption={Ackermannfunktion}, label={lst:2}]{codes/ackermann.py}
+
+
+\chapter{Abbildungen}
+
+\begin{together}
+
+\blindtext
+
+\begin{figure}[hbt]
+	\centering
+	\includegraphics[width=\imagewidth]{example-image}
+	\caption{Ein Bild als Gleitumgebung}
+	\label{fig:1}
+\end{figure}
+\end{together}
+
+\blindtext
+
+\begin{figure}[htb]
+	\centering
+	\begin{minipage}[t]{\imagewidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{example-image-a}
+		\caption{Das erste Bild}
+		\imagelegend{schwarz ist das neue weiß.}
+		\imagesource{deine Mudda.}
+		\label{fig:2}
+	\end{minipage}%
+	\begin{minipage}[t]{\imagewidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{example-image-b}
+		\caption{Das zweite Bild}
+		\imagelegend{schwarz ist das neue weiß.}
+		\imagesource{deine Oma.}
+		\label{fig:3}
+	\end{minipage}
+\end{figure}
+
+\blindtext
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[t]{\imagewidth}
+  		\centering
+  		\includegraphics[width=.9\linewidth]{example-image-c}
+  		\caption{A subfigure}
+  		\label{fig:sub4}
+	\end{subfigure}%
+	\begin{subfigure}[t]{\imagewidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{example-image}
+		\caption{A different subfigure}
+  		\label{fig:sub5}
+	\end{subfigure}
+	\caption{A figure with two subfigures}
+	\imagelegend{eine Legende}
+	\imagesource{eine Quelle}
+	\label{fig:4und5}
+\end{figure}
+
+\blindtext
+
+\begin{center}
+	\captionsetup{type=figure}
+	\includegraphics[width=\imagewidth]{example-image}
+	\caption{Ein Bild an genau dieser Stelle}
+	\imagesource{Dein Vater}
+	\label{fig:6}
+\end{center}
+
+\section{Mehr Schnitte im Ab}
+
+\blindtext[2]
+
+%----------------------------------------------------------------------------------------------------
+%	Literaturverzeichnis
+%----------------------------------------------------------------------------------------------------
+
+\printbibliography
+
+%----------------------------------------------------------------------------------------------------
+%	Anhang
+%----------------------------------------------------------------------------------------------------
+
+\appendix
+
+\chapter{Anhang}
+Hier steht der Anhang.
+
+\declaration[
+	heading=chapter,
+	numbering=true,
+	blank=false,
+]{Jan Hoegen}
+
+
+%----------------------------------------------------------------------------------------------------
+%	Ende
+%----------------------------------------------------------------------------------------------------
+
+\end{document}
