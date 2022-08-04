@@ -1,0 +1,263 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+\documentclass[%
+	fontsize=10pt, 
+	DIV=8, 
+%	twocolumn
+]{scrartcl}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{palatino}
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage{listingsutf8}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\usepackage{graphicx}
+\usepackage{JHauthorbars}
+
+\title{Das Paket \textit{JHauthorbars}}
+
+\author{Jan Hoegen\\\href{mailto:jan.hoegen@web.de}{jan.hoegen@web.de}}
+
+\date{25. Mai 2021}
+
+\definecolor{bluelinks}{rgb}{0.16, 0.32, 0.75}
+
+\makeatletter
+\hypersetup{%
+	pdftitle			=	\@title ,
+	pdfauthor			=	\@author ,
+	bookmarksnumbered	=	true,			%	Überschriften in pdf-Reader nummerieren
+	breaklinks			=	true,			%	Links umbrechen
+	colorlinks			=	true,
+	urlcolor	=	bluelinks,
+	linkcolor	=	.,
+	filecolor	=	.,
+	citecolor	=	.,
+	menucolor	=	.,
+}
+\makeatother
+
+\newcommand{\JHstylelstcommentcolor}{\color{ForestGreen}}
+\newcommand{\JHstylelststringcolor}{\color{Mulberry}}
+\newcommand{\JHstylelstkeywordcolor}{\color{blue}}
+
+\lstset{%
+	frame			=	tb ,							%	horizontale Linie oben&unten
+	breaklines		=	true,							%	Zeilenumbruch
+	rulecolor		=	\color{black} ,					%	Rahmenfarbe ist schwarz
+	keywordstyle	=	\JHstylelstkeywordcolor ,
+	commentstyle	=	\JHstylelstcommentcolor ,
+	stringstyle		=	\JHstylelststringcolor ,
+	title			=	\lstname ,						%	Titel ist gleich dem Dateinamen
+	basicstyle		=	\footnotesize\ttfamily ,		%	Kleine Schrift und Monospace
+	numbers			=	left,							%	Zeilennumber rechts
+	xleftmargin		=	2em,
+	framexleftmargin=	1em,
+	inputencoding	=	utf8,  							% Input encoding
+    extendedchars	=	true,  							% Extended ASCII
+}
+\lstdefinestyle{TeX}{language=TeX,						%	Mehr Keywörter für TeX
+    morekeywords={vspace, hspace, rule, ifdefined, newcommand, setlength, newlength, RequirePackage, ProvidesPackage, NeedsTeXFormat, DeclareOption, ProcessOption,  usepackage, documentclass, authorone, authortwo, authorthree, begin, thanks, reversemarginpar, ProcessOptions, definecolor, small, sffamily, AtBeginDocument, newenvironment, cbcolor, textcolor, emph, renewcommand}, 
+}
+\lstset{literate=
+  {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {ã}{{\~a}}1 {ẽ}{{\~e}}1 {ĩ}{{\~i}}1 {õ}{{\~o}}1 {ũ}{{\~u}}1
+  {Ã}{{\~A}}1 {Ẽ}{{\~E}}1 {Ĩ}{{\~I}}1 {Õ}{{\~O}}1 {Ũ}{{\~U}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {ű}{{\H{u}}}1 {Ű}{{\H{U}}}1 {ő}{{\H{o}}}1 {Ő}{{\H{O}}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\euro}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1
+  {»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1 {¡}{{!`}}1 
+  {~}{{\textasciitilde}}1 {*}{{\normalfont{*}}}1
+}
+
+\renewcommand{\lstlistingname}{Quellcode}						%	Snippet umbenennen
+\renewcommand{\lstlistlistingname}{Codeverzeichnis}				%	Listoflistings umbenennen
+
+\authorone{Dr. }{Max}{Müller}{}{}
+	\authortwo{}{Peter}{Lustig}{, 2.}{}
+	\authorthree{}{Angela}{Musterfrau}{}{}
+	
+		\makeatletter
+	\newcommand{\@minipagerestore}{\setlength{\parindent}{1em}}
+	\makeatother
+
+\begin{document}
+
+\maketitle
+
+\section{Einführung}
+Um bei gemeinsam erstellten Dokumenten Dritten gegenüber kenntlich zu machen, wer welchen Abschnitt bearbeitet hat, gibt es mehrere Möglichkeiten. Man könnte am Anfang des Dokuments eine Tabelle stellen, die auflistet welche Kapitel von welchen Gruppenmitglied bearbeitet wurden. Oder man schreibt den eigenen Namen in Klammern in die Kapitelüberschrift. Doch keine dieser Optionen ist wirklich zufriedenstellend. 
+
+An genau dieser Stelle setzt das Paket \textit{JHauthorbars} an. Seine Lösung ist, eine farbliche Linie am Textrand entlang zu setzen, dabei erhält jeder Autor eine zugewiesene Farbe. Damit wird der Lesefluss kaum beeinträchtigt, gleichzeitig ist auf jeder Seite sofort erkennbar, welcher Autor den vorliegenden Abschnitt geschrieben hat. Aktuell werden bis zu drei Autoren unterstützt.
+
+Bei schwarz-weiß-Drücken der Dokumente ist dieses Paket weniger geeignet.
+
+\section{Laden des Pakets}
+Um das Paket \textit{JHauthorbars} nutzen zu können, muss die Datei \verb+JHauthorbars.sty+ entweder im gleichen Ordner wie das Hauptdokument oder im Installationspfad der \TeX -Distribution liegen. Anschließend kann das Paket mit dem Befehl
+\begin{verbatim}
+	\usepackage[<opt>]{JHauthorbars}
+\end{verbatim}
+eingebunden werden. Die möglichen Argumente für \verb+[<opt>]+ werden im Abschnitt \ref{subsec:opt} erläutert.
+
+\section{Verwenden des Pakets}
+Um kenntlich zu machen welcher Autor welchen Textabschnitt erstellt hat, wird eine farbliche, vertikale Linie und der Nachname des Autors am Textrand eingefügt. Dabei wird jedem Autor eine eigene Farbe zugewiesen. Aktuell werden bis zu drei Autoren unterstützt. 
+
+Außerdem kann deutlich gemacht werden, dass ein Abschnitt von den Autoren gemeinsam bearbeite wurde -- auch hierfür wurde eine weitere Farbe festgelegt. Der Anfang und das Ende dieses gemeinsam Erstellten Abschnitts wird mit diesen Befehlen bestimmt. 
+\begin{verbatim}
+	\begin{together}
+		<text>
+	\end{together}
+\end{verbatim}
+
+Gleitumgebungen und Fußnoten innerhalb dieser Umgebung werden, auch wenn sie in einem anderen Abschnitt angezeigt werden, korrekt zugewiesen. Statt einem Autornachnamen wird "`Gemeinsam"' am Anfang des Abschnitts angezeigt.
+
+Es sind bis zu drei \LaTeX -Läufe notwendig, um die Marginalien richtig zu setzen.
+
+\subsection{Mehrere Autoren festlegen}
+Bevor die Umgebungen für die einzelnen Autoren genutzt werden können, müssen die Autornamen im Präambel definiert worden sein. Dies geschieht bei allen Paketen der \textit{JH}-Familie auf die gleiche Weise. Aktuell werden bis zu drei Autoren unterstützt.
+
+\begingroup\small
+\begin{verbatim}
+	\authorone{<prefix>}{<firstname>}{<lastname>}{<suffix>}{<footnote>}
+	\authortwo{<prefix>}{<firstname>}{<lastname>}{<suffix>}{<footnote>}
+	\authorthree{<prefix>}{<firstname>}{<lastname>}{<suffix>}{<footnote>}
+\end{verbatim}
+\endgroup
+
+Die Parameter bedeuten:
+\begin{description}
+	\item[<prefix>] Wird vor den Namen gestellt, Beispiel: \textit{Dr.}
+	\item[<firstname>] Der Vorname des Autors.
+	\item[<lastname>] Der Nachname des Autors.
+	\item[<suffix>] Wird dem Namen hin rangestellt, Beispiel: \textit{1. Vorsitzender}.
+	\item[<footnote>] Wird nur beim Erstellen der Titelseite hinter den Autornamen gestellt. Beispiel: \verb+\thanks{+ \textit{E-Mail-Adresse:} \verb+\href{bsp@email.com}{bsp@email.com}}+
+\end{description}
+
+Um Textabschnitte des ersten Autors festzulegen wird diese Umgebung genutzt:
+\begin{verbatim}
+	\begin{authoronebars}
+		<text>
+	\end{authoronebars}
+\end{verbatim}
+
+Um Textabschnitte des zweiten Autors festzulegen wird diese Umgebung genutzt:
+\begin{verbatim}
+	\begin{authortwobars}
+		<text>
+	\end{authortwobars}
+\end{verbatim}
+
+Um Textabschnitte des dritten Autors festzulegen wird diese Umgebung genutzt:
+\begin{verbatim}
+	\begin{authorthreebars}
+		<text>
+	\end{authorthreebars}
+\end{verbatim}
+
+Gleitumgebungen und Fußnoten innerhalb einer Umgebung werden, auch wenn sie bei einem anderen Autor ausgegeben werden, korrekt zugewiesen.
+
+Darüber hinaus existiert ein Befehl, der die Absicht der Marginalien erklärt und in Textform eine Zuordnung von Autor und Linienfarbe durchführt. Sein Wortlaut ist:
+\begin{quote}
+Verwendete Abbildungen und Tabellen in dieser Ausarbeitung sind -- soweit nicht anders angegeben -- von den Autoren erstellt worden. Durch farbliche Marginalien wurden die Autoren verschiedener Textabschnitte gekennzeichnet (<authorone.lastname>:~\textcolor{green1}{\rule{2pt}{0.7em}}, <authrotwo.lastname>:~\textcolor{blue1}{\rule{2pt}{0.7em}}, <authrothree.lastname>:~\textcolor{violet}{\rule{2pt}{0.7em}}, Gemeinsam:~\textcolor{orange1}{\rule{2pt}{0.7em}}).
+\end{quote}
+Der Befehl lautet:
+\begin{verbatim}
+	\authorbarsabstract	
+\end{verbatim}
+
+\subsection{Optionale Argumente}
+\label{subsec:opt}
+Beim Laden des Pakets kann folgender Ein-Aus-Schalter im optionalen Argument \verb+[<opt>]+ gesetzt werden:
+\begin{description}
+	\item[flip] Setzt im einseitigen Modus die farbliche Linie und den Autornachnamen auf die linke Marginalie. Im zweiseitigem Modus werden sie auf den inneren Textrand gesetzt.
+\end{description}
+Das bedeutet, dass standardmäßig im einseitigen Modus die Kennzeichnungen rechts gesetzt werden und im zweiseitigen Modus auf der äußeren Marginalie.
+
+%\newpage
+
+\section{Beispiel}
+Und nun ein Beispiel.
+
+\noindent
+\begin{minipage}[c]{0.6\textwidth}
+	\begin{lstlisting}[language=TeX, style=TeX, caption=Minimalbeispiel]
+\documentclass[10pt, DIV=8]{scrartcl}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphixc}
+\usepackage[ngerman]{babel}
+\usepackage{lmodern}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{JHauthorbars}
+
+\authorone{Dr. }{Max}{Müller}{}{}
+\authortwo{}{Peter}{Lustig}{, 2.}{}
+\authorthree{}{Angela}{Musterfrau}{}{\thanks{Fußnote}}
+
+\begin{document}
+
+\authorbarsabstract
+
+\begin{together}
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy.\footnote{Eine Fußnote.}
+\end{together}\par
+\begin{authoronebars}
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy..\footnote{Eine andere Fußnote.}
+\end{authoronebars}\par
+\begin{authorthreebars}
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy.
+\begin{center}
+\includegraphics[scale=0.2]{example-image}
+\end{center}
+\end{authorthreebars}
+\begin{authortwobars}
+\section*{Eine Section}
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy.
+\end{authortwobars}
+
+\end{document}
+	
+	\end{lstlisting}
+\end{minipage}\hfil%
+\begin{minipage}[c]{0.35\textwidth}
+	\begingroup\fontfamily{lmss}\selectfont\small
+	\authorbarsabstract
+	
+	\begin{together}
+		Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy.\footnote{Eine Fußnote.}
+	\end{together}\par
+	\begin{authoronebars}
+		Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy..\footnote{Eine andere Fußnote.}
+	\end{authoronebars}\par
+	\begin{authorthreebars}
+		Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy.
+		\begin{center}
+			\includegraphics[scale=0.2]{example-image}
+		\end{center}
+	\end{authorthreebars}
+	\begin{authortwobars}
+		\section*{Eine Section}
+		Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy.
+	\end{authortwobars}
+	\endgroup
+\end{minipage}
+
+\section{Der Code}
+\lstinputlisting[language=TeX, style=TeX]{JHauthorbars.sty}
+
+\end{document}

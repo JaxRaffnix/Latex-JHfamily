@@ -33,9 +33,6 @@
 \RequirePackage{listingsutf8}					% add source code
 \RequirePackage{eurosym}						% add euro-character
 
-\RequirePackage[backend=biber, style=ieee]{biblatex}	% biblography management
-\RequirePackage[autostyle]{csquotes}			% add quotes
-
 \RequirePackage{scrhack}						% TocBasic for listings
 
 \RequirePackage[colorlinks]{hyperref}			% add links
@@ -61,11 +58,14 @@
 %   Commands
 %----------------------------------------------------------------------------------------------------
 
-\renewcommand{\mkcitation}[1]{#1}			% csquotes blockquotes no bracket
+\DeclareOption{cites}{%
+	\RequirePackage[backend=biber, style=ieee]{biblatex}	% biblography management
+	\RequirePackage[autostyle]{csquotes}			% add quotes
+	\addbibresource{quellen.bib}                %   sourcepath
+	\renewcommand{\mkcitation}[1]{#1}			% csquotes blockquotes no bracket
+}
 
 \graphicspath{{/images}}                    %   imagepath
-
-\addbibresource{quellen.bib}                %   sourcepath
 
 \KOMAoptions{%
     toc		=	listof,						%   list of figure in table of contents

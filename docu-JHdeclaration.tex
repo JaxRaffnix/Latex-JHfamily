@@ -1,0 +1,190 @@
+ % !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+\documentclass[%
+	fontsize=10pt, 
+	DIV=8, 
+%	twocolumn
+]{scrartcl}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{palatino}
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage{listingsutf8}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\usepackage{JHdeclaration}
+
+\title{Das Paket \textit{JHdeclaration}}
+
+\author{Jan Hoegen\\\href{mailto:jan.hoegen@web.de}{jan.hoegen@web.de}}
+
+\date{25. Mai 2021}
+
+\definecolor{bluelinks}{rgb}{0.16, 0.32, 0.75}
+
+\makeatletter
+\hypersetup{%
+	pdftitle			=	\@title ,
+	pdfauthor			=	\@author ,
+	bookmarksnumbered	=	true,			%	Überschriften in pdf-Reader nummerieren
+	breaklinks			=	true,			%	Links umbrechen
+	colorlinks			=	true,
+	urlcolor	=	bluelinks,
+	linkcolor	=	.,
+	filecolor	=	.,
+	citecolor	=	.,
+	menucolor	=	.,
+}
+\makeatother
+
+\newcommand{\JHstylelstcommentcolor}{\color{ForestGreen}}
+\newcommand{\JHstylelststringcolor}{\color{Mulberry}}
+\newcommand{\JHstylelstkeywordcolor}{\color{blue}}
+
+\lstset{%
+	frame			=	tb ,							%	horizontale Linie oben&unten
+	breaklines		=	true,							%	Zeilenumbruch
+	rulecolor		=	\color{black} ,					%	Rahmenfarbe ist schwarz
+	keywordstyle	=	\JHstylelstkeywordcolor ,
+	commentstyle	=	\JHstylelstcommentcolor ,
+	stringstyle		=	\JHstylelststringcolor ,
+	title			=	\lstname ,						%	Titel ist gleich dem Dateinamen
+	basicstyle		=	\footnotesize\ttfamily ,		%	Kleine Schrift und Monospace
+	numbers			=	left,							%	Zeilennumber rechts
+	xleftmargin		=	2em,
+	framexleftmargin=	1em,
+	inputencoding	=	utf8,  							% Input encoding
+    extendedchars	=	true,  							% Extended ASCII
+}
+\lstdefinestyle{TeX}{language=TeX,						%	Mehr Keywörter für TeX
+    morekeywords={vspcae, hspace, rule, ifdefined, newcommand, setlength, newlength, RequirePackage, ProvidesPackage, NeedsTeXFormat, DeclareOption, ProcessOption, usepackage, documentclass, authorone, authortwo, authorthree, begin, thanks}, 
+}
+\lstset{literate=
+  {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {ã}{{\~a}}1 {ẽ}{{\~e}}1 {ĩ}{{\~i}}1 {õ}{{\~o}}1 {ũ}{{\~u}}1
+  {Ã}{{\~A}}1 {Ẽ}{{\~E}}1 {Ĩ}{{\~I}}1 {Õ}{{\~O}}1 {Ũ}{{\~U}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {ű}{{\H{u}}}1 {Ű}{{\H{U}}}1 {ő}{{\H{o}}}1 {Ő}{{\H{O}}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\euro}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1
+  {»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1 {¡}{{!`}}1 
+  {~}{{\textasciitilde}}1 {*}{{\normalfont{*}}}1
+}
+
+\renewcommand{\lstlistingname}{Quellcode}						%	Snippet umbenennen
+\renewcommand{\lstlistlistingname}{Codeverzeichnis}				%	Listoflistings umbenennen
+
+\begin{document}
+
+\maketitle
+
+\section{Einführung}
+Dieses Paket gibt an der gesetzten Stelle die Eidesstattliche Erklärung für Abschlussarbeiten des \textit{Karlsruher Institut für Technologie} aus. Sie ist in deutscher Sprache verfasst und fügt eine passende Überschrift sowie eine Unterschriftenzeile für bis zu drei Autoren ein.
+
+\section{Laden des Pakets}
+Um das Paket \textit{JHdeclaration} nutzen zu können, muss die Datei \verb+JHdeclaration.sty+ entweder im gleichen Ordner wie das Hauptdokument oder im Installationspfad der \TeX -Distribution liegen. Anschließend kann das Paket mit dem Befehl
+\begin{verbatim}
+	\usepackage{JHdeclaration}
+\end{verbatim}
+eingebunden werden.
+
+\section{Verwenden des Pakets}
+Der Textabsatz mit Überschrift und Signaturzeile wird mit dem Befehl 
+\begin{verbatim}
+	\declaration[<opt>]{<name>}
+\end{verbatim}
+erzeugt. Im notwendigen Argument \verb+{<name>}+ wird der Name des Autors angegeben. Das optionale Argument \verb+[<opt>]+  akzeptiert folgende Ein-Aus-Schalter:
+\begin{description}
+	\item[twocolumn] Die Abstände der Signaturzeile werden angepasst, um sich dem zweispaltigen Text anzupassen. Wird \verb+twocolumn+ bereits beim Laden der Dokumentenklasse angebenden, wird das automatisch erkannt. 
+	\item[blank] Es wird kein Text und keine Überschrift ausgegeben, sondern nur die Signaturzeile.
+	\item[numbering] Schaltet die Überschriftennummerierung aus.
+	\item[heading=<arg>] Mit \verb+heading=<arg>+ wird die Gliederungsebende der Überschrift angegeben. \verb+<arg>+ kann somit die Werte \verb+section+ , \verb+addsec+ , \verb+chapter+ , \verb+addchap+ und so weiter annehmen.
+\end{description}
+
+Standardmäßig sind \verb+numbering+ und \verb+heading=section+ gesetzt.
+
+\subsection*{Mehrere Autoren festlegen}
+Um weitere Siganturzeilen für weitere Autoren hinzuzufügen, müssen die Autornamen im Präambel definiert worden sein. Dies geschieht bei allen Paketen der \mbox{\textit{JH}-Familie} auf die gleiche Weise. Aktuell werden bis zu drei Autoren unterstützt.
+
+\begingroup\small
+\begin{verbatim}
+	\authorone{<prefix>}{<firstname>}{<lastname>}{<suffix>}{<footnote>}
+	\authortwo{<prefix>}{<firstname>}{<lastname>}{<suffix>}{<footnote>}
+	\authorthree{<prefix>}{<firstname>}{<lastname>}{<suffix>}{<footnote>}
+\end{verbatim}
+\endgroup
+
+Die Parameter bedeuten:
+\begin{description}
+	\item[prefix] Wird vor den Namen gestellt, Beispiel: \textit{Dr.}
+	\item[firstname] Der Vorname des Autors.
+	\item[lastname] Der Nachname des Autors.
+	\item[suffix] Wird dem Namen hin rangestellt, Beispiel: \textit{1. Vorsitzender}.
+	\item[footnote] Wird nur beim Erstellen der Titelseite hinter den Autornamen gestellt. Beispiel: \verb+\thanks{+ \textit{E-Mail-Adresse:} \verb+\href{bsp@email.com}{bsp@email.com}}+
+\end{description}
+
+Für jeden definierten Autor wird eine eigene Unterschriftenzeile erstellt. Außerdem wechselt die Eidesstattliche Erklärung bei zwei oder mehr Autoren automatisch von der Singular- in die Pluralform.
+
+Hinweis! Wird der Name des ersten Autors mit \verb+\authorone{}{}{}{}{}+ festgelegt, so wird der Name im notwendigen Argument von \verb+\JHdeclaration[]{}+ überschrieben und durch \verb+\authorone{}{}{}{}{}+ ersetzt.
+
+\section{Beispiel}
+Nun folgt ein kleines Beispiel. Man beachte, dass obwohl in
+\begin{verbatim}
+	\declaration[]{Max Müller}
+\end{verbatim} der Name des ersten Autors als \textit{Max Müller} angegeben wird, dies bei der Ausgabe der Signaturzeile überschrieben wird mit \textit{Dr. Max Müller}, denn der vollständige Name wurde durch
+\begin{verbatim}
+	\authorone{Dr. }{Max}{Müller}{}{}
+\end{verbatim}
+festgelegt.
+
+\newpage
+\noindent
+\begin{minipage}[c]{0.45\textwidth}
+	\begin{lstlisting}[language=TeX, style=TeX, caption=Minimalbeispiel]
+\documentclass[10pt, DIV=8]{scrartcl}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{lmodern}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{JHdeclaration}
+
+\authorone{Dr. }{Max}{Müller}{}{}
+\authortwo{}{Peter}{Lustig}{, 2.}{}
+\authorthree{}{Angela}{Musterfrau}{}{\thanks{Fußnote}}
+		
+\begin{document}
+
+\declaration[%
+	numbering=false,
+	heading=addsec,
+]{Max Müller}
+\end{document}
+	\end{lstlisting}
+\end{minipage}\hfil%
+\begin{minipage}[c]{0.45\textwidth}
+	\begingroup\fontfamily{lmss}\selectfont\small
+	\authorone{Dr. }{Max}{Müller}{}{}
+	\authortwo{}{Peter}{Lustig}{, 2.}{}
+	\authorthree{}{Angela}{Musterfrau}{}{}
+	\declaration[heading=addsec, numbering=false]{Jan Hoegen}
+	\endgroup
+\end{minipage}
+
+\section{Der Code}
+\lstinputlisting[language=TeX, style=TeX]{JHdeclaration.sty}
+
+ \end{document}

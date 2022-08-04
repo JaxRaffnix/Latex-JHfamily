@@ -21,6 +21,10 @@
 
 
 \newif\ifdeclaration@blank
+%\declaration@blankfalse
+%\DeclareOption{blank}{%		% Boolean paragraph
+%	\declaration@blanktrue
+%}
 \define@boolkey{declaration}{blank}{%	% Boolean paragraph
 	\ifKV@declaration@blank
 		\declaration@blanktrue
@@ -28,6 +32,7 @@
 		\declaration@blankfalse
 	\fi
 }
+
 \define@boolkey{declaration}{numbering}{%	% Boolean heading number
 	\ifKV@declaration@numbering
 		\def\declaration@numbering{}%
@@ -40,7 +45,7 @@
 		\ \csname#1\expandafter\endcsname\declaration@numbering{Eidesstattliche Erkl\"{a}rung}
 }}
 
-\setkeys{declaration}{heading=section, numbering=true, blank=false,}	% Set defaults
+\setkeys{declaration}{heading=section, numbering=true,}	% Set defaults
 
 
 \def\authorone#1#2#3#4#5{%		% First author
@@ -105,25 +110,25 @@
 	\begin{samepage}	
 	\ifdefined\JH@authorthree@full		% 3 Authors
 		\vspace{\declaration@sign@vert}\vfil\noindent%
-		\rule{\declaration@sign@hor}{0.5pt}\\\nopagebreak
+		\rule{\declaration@sign@hor}{0.5pt}\\
 		Ort, Datum\hspace{\declaration@name@hor}\declaration@author\par
 		\vspace{\declaration@sign@vert}\noindent%
-		\rule{\declaration@sign@hor}{0.5pt}\\\nopagebreak
+		\rule{\declaration@sign@hor}{0.5pt}\\
 		Ort, Datum\hspace{\declaration@name@hor}\JH@authortwo@full\par
 		\vspace{\declaration@sign@vert}\noindent%
-		\rule{\declaration@sign@hor}{0.5pt}\\\nopagebreak
+		\rule{\declaration@sign@hor}{0.5pt}\\
 		Ort, Datum\hspace{\declaration@name@hor}\JH@authorthree@full\par
 	\else
 		\ifdefined\JH@authortwo@full	% 2 Authors
 			\vspace{\declaration@sign@vert}\vfil\noindent%
-			\rule{\declaration@sign@hor}{0.5pt}\\\nopagebreak
+			\rule{\declaration@sign@hor}{0.5pt}\\
 			Ort, Datum\hspace{\declaration@name@hor}\declaration@author\par
 			\vspace{\declaration@sign@vert}\noindent%
-			\rule{\declaration@sign@hor}{0.5pt}\\\nopagebreak
+			\rule{\declaration@sign@hor}{0.5pt}\\
 			Ort, Datum\hspace{\declaration@name@hor}\JH@authortwo@full\par
 		\else			% 1 Author
 			\vspace{\declaration@sign@vert}\vfil\noindent%
-			\rule{\declaration@sign@hor}{0.5pt}\\\nopagebreak
+			\rule{\declaration@sign@hor}{0.5pt}\\
 			Ort, Datum\hspace{\declaration@name@hor}\declaration@author\par
 		\fi
 	\fi

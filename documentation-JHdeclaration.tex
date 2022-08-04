@@ -1,0 +1,189 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+\documentclass[%
+	fontsize=10pt, 
+	DIV=8, 
+%	twocolumn
+]{scrartcl}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{palatino}
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage{listingsutf8}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\usepackage{JHdeclaration}
+
+\definecolor{bluelinks}{rgb}{0.16, 0.32, 0.75}
+\hypersetup{%
+	bookmarksnumbered	=	true,			%	Überschriften in pdf-Reader nummerieren
+	breaklinks			=	true,			%	Links umbrechen
+	colorlinks			=	true,			%	farbliche Links
+	urlcolor			=	bluelinks,
+	linkcolor			=	.,
+	filecolor			=	.,
+	citecolor			=	.,
+}
+
+\newcommand{\commentcolor}{\color{ForestGreen}}
+\newcommand{\stringcolor}{\color{Mulberry}}
+\newcommand{\keywordcolor}{\color{blue}}
+\lstset{%
+	frame			=	tb ,							%	horizontale Linie oben&unten
+	breaklines		=	true,							%	Zeilenumbruch
+	rulecolor		=	\color{black} ,					%	Rahmenfarbe ist schwarz
+	keywordstyle	=	\keywordcolor ,
+	commentstyle	=	\commentcolor ,
+	stringstyle		=	\stringcolor ,
+	title			=	\lstname ,						%	Titel ist gleich dem Dateinamen
+	basicstyle		=	\footnotesize\ttfamily ,		%	Kleine Schrift und Monospace
+	numbers			=	left,							%	Zeilennumber rechts (da marginalie links)
+	inputencoding	=	utf8,  							% Input encoding
+    extendedchars	=	true,  							% Extended ASCII
+}
+\lstset{literate=%							%	ermöglicht Unicode-Zeichen in Listing!
+    {Ö}{{\"O}}1
+    {Ä}{{\"A}}1
+    {Ü}{{\"U}}1
+    {ß}{{\ss}}1
+    {ü}{{\"u}}1
+    {ä}{{\"a}}1
+    {ö}{{\"o}}1
+    {~}{{\textasciitilde}}1
+	{*}{{\normalfont{*}}}1
+}
+\lstdefinestyle{TeX}{									%	mehr Keywörter wenn style=TeX
+	morekeywords={vspace, hspace, rule, ifdefined, newcommand, setlength, newlength, RequirePackage, ProvidesPackage, NeedsTeXFormat, DeclareOption, ProcessOption, define, PackageWarning, CurrentOption, ProcessOptions, if, setkeys, define@boolkey, define@key, documentclass, usepackage, renewcommand, begin, familydefault, sfdefault, enquote,}
+}
+\renewcommand{\lstlistingname}{Code}						%	Snippet umbenennen
+\renewcommand{\lstlistlistingname}{Codeverzeichnis}				%	Listoflistings umbenennen
+
+\title{Das Paket \textit{JHdeclaration}}
+
+\author{Jan Hoegen\\\href{mailto:jan.hoegen@web.de}{jan.hoegen@web.de}}
+
+\date{28. April 2021}
+
+\begin{document}
+
+\maketitle
+
+\section{Einführung}
+Dieses Paket stellt an die gewünschte Stelle die Eidesstattliche Erklärung für Abschlussarbeiten des \textit{Karlsruher Institut für Technologie}. Der dafür notwendige Befehl lautet
+\begin{verbatim}
+	\declaration[<>]{<>}
+\end{verbatim} 
+Es wird automatisch von der Singular- in die Pluralform gewechselt, wenn mehrere Autoren angegeben sind.\par
+Damit auch im \verb+twoside+ -Modus keine Fehler auftreten, muss diese Anweisung zwingend global beim laden der Dokumentenklasse
+\begin{verbatim}
+	\documentclass[twoside, <>]{<>}
+\end{verbatim} 
+angegeben werden.\par
+Bugs und Verbesserungsvorschläge können an den Autor über \href{mailto:jan.hoegen@web.de}{jan.hoegen@web.de} gesendet werden.
+
+\section{Laden des Pakets}
+
+Um das Paket nutzen zu können muss die Datei \verb+JHdeclraration.sty+ entweder im gleichen Ordner wie das Hauptdokument oder im Installationspfad der \TeX -Distribution liegen. \par
+Anschließend kann das Paket über
+\begin{verbatim}
+	\usepackage{JHdeclaration}
+\end{verbatim}
+eingebunden werden.
+
+\section{Verwenden des Pakets}
+Der Text mit Überschrift und Singnaturzeile wird mit dem Befehl 
+\begin{verbatim}
+	\delaration[<>]{<>}
+\end{verbatim}
+erzeugt. Im notwendigen Argument \verb+{}+ wird der Name des Autors angegeben.
+
+Weitere Parameter können entweder mit Hilfe des Befehls
+\begin{verbatim}
+	\JHsetup{<>}
+\end{verbatim}
+oder als optionales Argument beim Aufrufen des \verb+\declaration+ Befehls angegeben werden.
+	\subsection{Optionale Argumente}
+	Folgende optionale Argumente sind möglich:
+	\begin{description}
+%		\item \verb+heading+ Legt die Gliederungsebene der Überschrift fest
+%		\item \verb+numbering+ Nummerierung für die Überschrift ein- bzw. ausschalten
+%		\item \verb+authortwo+ Vorname und Nachname des zweiten Autors festlegen
+%		\item \verb+authorthree+ Vorname und Nachname des dritten Autors festlegen
+		\item[blank] Es wird keine Überschrift und kein Text überzeugt, nur die Signaturzeile(n)
+		\item[heading] Legt die Gliederungsebene der Überschrift fest
+		\item[numbering] Nummerierung für die Überschrift ein- bzw. ausschalten
+		\item[authortwo] Vorname und Nachname des zweiten Autors festlegen
+		\item[authorthree] Vorname und Nachname des dritten Autors festlegen
+	\end{description}
+	
+	Tabelle \ref{tab:1} zeigt die Standardwerte für die verschiedenen Elemente.
+	
+	\begin{table}
+		\centering
+		\begin{tabular}{lll}\toprule
+			Element		&	Mögliche Werte	&	Standard\\\midrule
+			blank		&	true, false		&	false\\
+			heading		&	chapter, addchap, section, addsec, subsection	&	section\\
+			numbering	&	true, false	&	true\\
+			authortwo	&	<>		&	\\
+			authorthree	&	<>		&	\\\bottomrule
+		\end{tabular}
+		\caption{Optionale Argumente von declaration}
+		\label{tab:1}
+	\end{table}		
+	
+\newpage
+	
+\section{Beispiel}
+Und nun ein kleines Beispiel:
+	
+	\begin{center}
+	\begin{minipage}[c]{0.48\textwidth}
+		\begin{lstlisting}[language=TeX, style=TeX, caption={Minimalbeispiel}]
+\documentclass[fontsize=10pt, DIV=8]{scrartcl}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{lmodern}
+\renewcommand*\familydefault{\sfdefault}
+
+\usepackage{JHdeclaration}
+
+\begin{document}
+
+\declaration[%
+	heading=addsec,
+	numbering=false,
+	authortwo={Peter Lustig},
+	authorthree={Max Müller},
+]{Jan Hoegen}
+
+\end{document}
+		\end{lstlisting}
+	\end{minipage}%
+	\hfil%
+	\begin{minipage}[c]{0.48\textwidth}
+		\begingroup\fontfamily{lmss}\selectfont\small
+		\declaration[%
+			heading=addsec,
+			numbering=false,
+%			authortwo={Peter Lustig},
+%			authorthree={Max Müller},
+		]{Jan Hoegen}
+		\endgroup
+	\end{minipage}
+	\end{center}
+
+\section{Der Code}
+\lstinputlisting[language=TeX, style=TeX]{JHdeclaration.sty}
+
+\declaration[%
+]{Jan Hoegen ü}
+
+\end{document}
